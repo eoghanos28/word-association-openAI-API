@@ -27,3 +27,4 @@ def record(seconds):
         stream.close()
         p.terminate()
 
+record(5)
