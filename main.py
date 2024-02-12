@@ -2,7 +2,7 @@ import audioTest
 import chatAPI
 
 words=[]
-theme="Theme: Words relating to Zoos. Word: "
+theme="Theme: Words relating to college. Word: "
 while True:
     audioTest.record(2,'output.wav')
 
@@ -11,9 +11,15 @@ while True:
     if transcript not in words:
         words.append(transcript)
 
+    else:
+        print("PLAYER OUT")
+        break
+
     transcript=theme+transcript
     output=chatAPI.prompt(transcript)
-    print(transcript)
-    print(output)
-    print(words)
+    if output == "False":
+        print("PLAYER OUT")
+        break
+    print("Correct Next Player")
 #chatAPI.textToAudio(output)
+# '''
