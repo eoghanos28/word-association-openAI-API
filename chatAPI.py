@@ -18,6 +18,18 @@ def textToAudio(trans):
         voice="alloy",
         input=trans
         )
-
     response.stream_to_file(speech_file_path)
 
+def prompt(prompt):
+
+    completion = client.chat.completions.create(
+    model="gpt-4-turbo-preview",
+    messages=[
+    {"role": "system", "content": "You are an assistant used to help users answer their questions"},
+    {"role": "user", "content": prompt}
+  ]
+    )
+
+    return completion.choices[0].message.content
+
+    
