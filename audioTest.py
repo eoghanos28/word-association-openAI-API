@@ -4,14 +4,14 @@ import pyaudio
 
 
 
-def record(seconds):
+def record(seconds,output):
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
     CHANNELS = 1 if sys.platform == 'darwin' else 2
     RATE = 44100
     RECORD_SECONDS = seconds
 
-    with wave.open('output.wav', 'wb') as wf:
+    with wave.open(output, 'wb') as wf:
         p = pyaudio.PyAudio()
         wf.setnchannels(CHANNELS)
         wf.setsampwidth(p.get_sample_size(FORMAT))
