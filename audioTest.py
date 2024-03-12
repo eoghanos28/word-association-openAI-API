@@ -52,6 +52,3 @@ class AudioFile:
         """ Graceful shutdown """ 
         self.stream.close()
         self.p.terminate()
-
-# Usage example for pyaudio
-a = AudioFile("incorrect.wav")
