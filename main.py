@@ -1,4 +1,7 @@
 import pygame
+from chatAPI import prompt
+
+
 class main():
     def __init__(self):
         pygame.init()
@@ -24,9 +27,7 @@ class main():
             return True
         else:
             return False
-            
-    def game(self):
-        self.screen.fill("black")
+
     def eventCheck(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,7 +44,11 @@ class main():
                         else: 
                             tb.active = False
                         if tbS.rect.collidepoint(event.pos):
-                            mainLoop.theme[1]=tb.user_text;mainLoop.theme[0]=True
+                            if self.themeCheck(tb.user_text):
+                                self.theme[1]=tb.user_text;self.theme[0]=True
+                            else:
+                                print("Try again")
+
             if tb.active==True:
                 if event.type == pygame.KEYDOWN: 
 
@@ -53,7 +58,23 @@ class main():
     
                     else: 
                         tb.user_text += event.unicode
-            
+    def themeCheck(self,theme):
+        return True
+
+
+
+class game():
+    def __init__(self,no):
+        self.players=[]
+        for i in range(no):
+            self.players.append(player(i))
+
+class player():
+    def __init__(self,no):
+        #Create pos, around square 
+        #pos0=screen.get_width()/2+no*40
+        pass
+
 mainLoop=main()
 
 class textBoxSubmit():
@@ -65,7 +86,7 @@ class textBoxSubmit():
         self.rect=pygame.Rect(self.pos[0],self.pos[1],self.width,self.height)
     def draw(self):
         pygame.draw.rect(mainLoop.screen, self.colour, self.rect)
-        self.rect.x=tb.pos[0]+tb.input_rect.w+5
+        self.rect.x=tb.input_rect.x+tb.input_rect.w+5
 
         
 
@@ -73,9 +94,9 @@ class textBox():
     def __init__(self):
         self.base_font = pygame.font.Font(None, 32) 
         self.user_text = ''
-        self.pos=(200,200)
         self.width=140
         self.height=32
+        self.pos=(mainLoop.screen.get_width()//2-(self.width//2),mainLoop.screen.get_height()//2-100)
         self.input_rect = pygame.Rect(self.pos[0], self.pos[1], self.width, self.height) 
         self.color_active = pygame.Color('lightskyblue3')   
 
@@ -92,8 +113,9 @@ class textBox():
   
         self.text_surface = self.base_font.render(self.user_text, True, (255, 255, 255))
         mainLoop.screen.blit(self.text_surface, (self.input_rect.x+5, self.input_rect.y+5)) 
-   
+        
         self.input_rect.w = max(100, self.text_surface.get_width()+10)
+        self.input_rect.x = mainLoop.screen.get_width()//2-(self.input_rect.w//2)
     
 
 
