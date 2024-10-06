@@ -25,7 +25,7 @@ def prompt(prompt):
     completion = client.chat.completions.create(
     model="gpt-4-turbo-preview",
     messages=[
-    {"role": "system", "content": "Your are a game-master, your job is to check to see if a given word is similar to the theme if so then output true, else false"},
+    {"role": "system", "content": "Your are a game-master, your job is to check to see if a given word is similar to the theme if so then output true, else false. There must be no spelling-errors within the answer and they have to do with the theme"},
     {"role": "user", "content": prompt}
   ]
     )
