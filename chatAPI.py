@@ -1,17 +1,25 @@
 from openai import OpenAI
 from pathlib import Path
-client = OpenAI(api_key="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")
+#Removed api key for public but api key goes in here
+client = OpenAI(api_key="api key here")
+
+#function for taking audio and outputting text
 def audioToText(file):
+    #open audio file
     audio_file= open(file, "rb")
+    #Create transcript using the openAI whisper-1 model and respond in text format
     transcript = client.audio.transcriptions.create(
     model="whisper-1", 
     file=audio_file,
     response_format="text"
     )
+    
+    #Return text format
     return transcript
 
-
+#Unused for now but for changing text to audio using openAI tts-1 with the alloy voice
 def textToAudio(trans):
+    #using 
     speech_file_path = Path(__file__).parent / "ttsThing.mp3"
     response= client.audio.speech.create(
         model="tts-1",
@@ -20,8 +28,10 @@ def textToAudio(trans):
         )
     response.stream_to_file(speech_file_path)
 
-def prompt(prompt):
 
+#Used to compare the word said to the theme
+def prompt(prompt):
+    #completion[0] is the return text (true or false) 
     completion = client.chat.completions.create(
     model="gpt-4-turbo-preview",
     messages=[
